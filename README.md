@@ -46,7 +46,7 @@ cd frontend
 npm install
 ```
 
-5. Create a `.env` file with a Django SECRET_KEY and the DEBUG boolean. Here is [a Django SCRET_KEY generator](https://djecrety.ir/).
+5. Create a `.env` file with a Django SECRET_KEY and the DEBUG boolean. Here is [a Django SECRET_KEY generator](https://djecrety.ir/).
 
 ```
 SECRET_KEY=<your_secret_key_generated>
