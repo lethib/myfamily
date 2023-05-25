@@ -14,7 +14,7 @@ def index(request):
         "first_family_parent_id", "second_family_parent_id"
     ).all()
     serializer = FamilySerializer(families, many=True)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response({'families' : serializer.data}, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
@@ -34,4 +34,4 @@ def show(request, pk):
         )
 
     serializer = FamilySerializer(family)
-    return Response(serializer.data, status=status.HTTP_200_OK)
+    return Response({'family' : serializer.data }, status=status.HTTP_200_OK)
