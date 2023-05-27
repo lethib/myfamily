@@ -2,18 +2,14 @@
 from __future__ import unicode_literals
 
 from django.db import models
-from .people import People
+from .person import Person
 
 
 class Family(models.Model):
-    first_family_parent_id = models.ForeignKey(
-        People, on_delete=models.CASCADE, related_name="first_family_parent"
-    )
-    second_family_parent_id = models.ForeignKey(
-        People,
-        on_delete=models.SET_NULL,
-        null=True,
-        blank=True,
-        related_name="second_family_parent",
-    )
-    name = models.CharField(max_length=15)
+    """Families are groups of persons with parents and children"""
+
+    name = models.CharField(max_length=30)
+    persons = models.ManyToManyField("Person", through="FamilyPerson")
+
+    def get_persons_data(self):
+        return Person.objects.filter(families=self)

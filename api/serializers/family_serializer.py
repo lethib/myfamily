@@ -1,11 +1,10 @@
 from rest_framework.serializers import ModelSerializer
 from ..models import Family
-from .people_serializer import PeopleSerializer
+from .person_serializer import PersonSerializer
 
 
 class FamilySerializer(ModelSerializer):
-    first_parents_data = PeopleSerializer(source="first_family_parent_id")
-    second_parents_data = PeopleSerializer(source="second_family_parent_id")
+    persons = PersonSerializer(source="get_persons_data", many=True)
 
     class Meta:
         model = Family

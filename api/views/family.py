@@ -10,20 +10,16 @@ from ..serializers import FamilySerializer
 
 @api_view(["GET"])
 def index(request):
-    families = Family.objects.select_related(
-        "first_family_parent_id", "second_family_parent_id"
-    ).all()
+    families = Family.objects.prefetch_related("persons").all()
     serializer = FamilySerializer(families, many=True)
-    return Response({'families' : serializer.data}, status=status.HTTP_200_OK)
+    return Response({"families": serializer.data}, status=status.HTTP_200_OK)
 
 
 @api_view(["GET"])
 def show(request, pk):
     def set_family(family_id):
         try:
-            return Family.objects.select_related(
-                "first_family_parent_id", "second_family_parent_id"
-            ).get(id=family_id)
+            return Family.objects.prefetch_related("persons").get(id=family_id)
         except Family.DoesNotExist:
             return None
 
@@ -34,4 +30,4 @@ def show(request, pk):
         )
 
     serializer = FamilySerializer(family)
-    return Response({'family' : serializer.data }, status=status.HTTP_200_OK)
+    return Response({"family": serializer.data}, status=status.HTTP_200_OK)
