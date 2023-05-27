@@ -1,3 +1,3 @@
-from .people import People
-from .parents_child import ParentsChild
+from .person import Person
 from .family import Family
+from .family_person import FamilyPerson

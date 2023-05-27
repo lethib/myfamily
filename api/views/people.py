@@ -4,16 +4,16 @@ from __future__ import unicode_literals
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework import status
-from ..models import People
-from ..serializers.people_serializer import PeopleSerializer
+from ..models import Person
+from ..serializers import PersonSerializer
 
 # Create your views here.
 
 
 @api_view(["GET"])
 def index(request):
-    people = People.objects.all()
-    serializer = PeopleSerializer(people, many=True)
+    people = Person.objects.all()
+    serializer = PersonSerializer(people, many=True)
     return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -21,8 +21,8 @@ def index(request):
 def show(request, pk):
     def set_people(people_id):
         try:
-            return People.objects.get(id=people_id)
-        except People.DoesNotExist:
+            return Person.objects.get(id=people_id)
+        except Person.DoesNotExist:
             return None
 
     people = set_people(pk)
@@ -31,5 +31,5 @@ def show(request, pk):
             {"res": "People does not exists"}, status=status.HTTP_400_BAD_REQUEST
         )
 
-    serializer = PeopleSerializer(people)
+    serializer = PersonSerializer(people)
     return Response(serializer.data, status=status.HTTP_200_OK)

@@ -1,2 +1,3 @@
-from .people_serializer import PeopleSerializer
+from .person_serializer import PersonSerializer
 from .family_serializer import FamilySerializer
+from .family_person_serializer import FamilyPersonSerializer
